@@ -100,9 +100,16 @@ Java, Android Studio, Google Maps API, Firebase
   ---
   
 ## Installation instructions:
-  - The developers can clone the repository.(The code will be uploaded soon)
+  - The developers can clone the repository.
+    - Add the project to firebase. All dependencies(FirebaseFirestore,FirebaseAuth,FirebaseStorage) have already been added to the gradle file
+    - Add the google maps API key to your project [Refer to documentation](https://developers.google.com/maps/documentation/android-sdk/start)
+  - Now you can run the project on Android Studio.
   - Others can download the apk from the given link.(apk will be uploaded on 27-07-2020)
 
 ## Known bugs:
  - Maps activity crashing sometimes
  - Filters (boolean payment,delivery) not saving in firestore
+ 
+### Working on:
+ Search Activity
+ Chat Activity
