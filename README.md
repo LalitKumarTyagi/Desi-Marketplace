@@ -102,3 +102,7 @@ Java, Android Studio, Google Maps API, Firebase
 ## Installation instructions:
   - The developers can clone the repository.(The code will be uploaded soon)
   - Others can download the apk from the given link.(apk will be uploaded on 27-07-2020)
+
+## Known bugs:
+ - Maps activity crashing sometimes
+ - Filters (boolean payment,delivery) not saving in firestore
