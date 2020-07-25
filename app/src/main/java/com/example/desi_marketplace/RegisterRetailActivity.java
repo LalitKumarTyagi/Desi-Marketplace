@@ -180,7 +180,7 @@ public class RegisterRetailActivity extends AppCompatActivity {
                 map4.put("Rating",0);
                 map4.put("TotalRatings",0);
                 map4.put("PaymentMode",payment);
-                map.put("Delivery",delivery);
+                map4.put("Delivery",delivery);
                 firestore.collection("EnterpriseType").document("Type").collection(productType).document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(map4, SetOptions.merge())
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
