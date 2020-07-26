@@ -1,4 +1,4 @@
- package com.example.desi_marketplace;
+package com.example.desi_marketplace;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -127,9 +127,10 @@ public class RegisterConsuActivity extends AppCompatActivity implements OnMapRea
         else {
             editor.putString("Uid", FirebaseAuth.getInstance().getCurrentUser().getUid());
             editor.commit();
-            String firstname = preferences.getString("Firstname", "");
-            String lastname = preferences.getString("Lastname", "");
-            String email = preferences.getString("email", "");
+            Intent intent=getIntent();
+            String firstname=intent.getStringExtra("Firstname");//preferences.getString("Firstname","");
+            String lastname=intent.getStringExtra("Lastname");//preferences.getString("Lastname","");
+            String email=intent.getStringExtra("email");//preferences.getString("email","");
             HashMap<String, Object> map = new HashMap<>();
             map.put("Phone", phone);
             map.put("Firstname", firstname);
@@ -157,6 +158,8 @@ public class RegisterConsuActivity extends AppCompatActivity implements OnMapRea
                     });
             firestore.collection("Consumer").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).update("Favourites", FieldValue.arrayUnion("Sample"));
             firestore.collection("Consumer").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).update("Chats", FieldValue.arrayUnion("Sample"));
+            editor.putBoolean("LoggedIn",true);
+            editor.commit();
             startActivity(new Intent(RegisterConsuActivity.this,HomePage.class));
         }
     }

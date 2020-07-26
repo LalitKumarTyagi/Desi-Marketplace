@@ -1,4 +1,4 @@
- package com.example.desi_marketplace;
+package com.example.desi_marketplace;
 
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -79,8 +79,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(MapsActivity.this);
 
         if (isGpsEnabled()) {
-        } else
-            Toast.makeText(this, "Enable GPS", Toast.LENGTH_SHORT).show();
+        } else {
+            //Toast.makeText(this, "Enable GPS", Toast.LENGTH_SHORT).show();
+        }
         if (mLocationPermissionGranted) {
             mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
             mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
@@ -179,17 +180,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     editor.remove("UserType");
                                     Intent goToHome=new Intent();
                                     goToHome.setClass(MapsActivity.this,HomePage.class);
+                                    editor.putBoolean("LoggedIn",true);
+                                    editor.commit();
                                     startActivity(goToHome);
                                     finish();
                                 }
                                 else
-                                    Toast.makeText(MapsActivity.this, "Unable to link to database", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MapsActivity.this, "Unable to fetch from database", Toast.LENGTH_SHORT).show();
                             }
                         });
             }
             else
-                Toast.makeText(this, "Unable to fetch AccountType", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(MapsActivity.this,HomePage.class));
+                Toast.makeText(this, "Unable to link to database", Toast.LENGTH_SHORT).show();
+            //startActivity(new Intent(MapsActivity.this,HomePage.class));
 
             if(UserType!=null)
             {
@@ -213,6 +216,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if(requestCode==PERMISSION_REQUEST_CODE && grantResults[0]==PackageManager.PERMISSION_GRANTED){
             mLocationPermissionGranted=true;
+
         }
     }
 
