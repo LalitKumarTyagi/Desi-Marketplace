@@ -1,6 +1,5 @@
 package com.example.desi_marketplace;
 
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,7 +28,7 @@ import java.util.ArrayList;
 public class NewsActivity extends AppCompatActivity {
 
     //String websiteName[];
-
+   
     SharedPreferences preferences;
     FirebaseFirestore firestore;
     CollectionReference collectionRef;
@@ -48,6 +47,8 @@ public class NewsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
+        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+
         setContentView(R.layout.activity_news);
 
         final TextView top = findViewById(R.id.textViewTop);
@@ -82,22 +83,22 @@ public class NewsActivity extends AppCompatActivity {
 
 
 
-                            //String news = (String) snapshot.getString("News");
-                            //Toast.makeText(NewsActivity.this, news, Toast.LENGTH_SHORT).show();
+                        //String news = (String) snapshot.getString("News");
+                        //Toast.makeText(NewsActivity.this, news, Toast.LENGTH_SHORT).show();
 
 
 
 
-                        }
+                    }
                         top.setText("News links of some websites, click to view");
-                        ArrayAdapter<String> adapter = new ArrayAdapter(NewsActivity.this, android.R.layout.simple_list_item_1, link_Titles );
+                        ArrayAdapter<String> adapter = new ArrayAdapter(NewsActivity.this, R.layout.row, link_Titles );
                         listView.setAdapter(adapter);
 
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                 link = links.get(i).toString();
-                                Toast.makeText(NewsActivity.this, link, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(NewsActivity.this, link, Toast.LENGTH_SHORT).show();
 
                                 webV.loadUrl(link);
 
@@ -116,5 +117,5 @@ public class NewsActivity extends AppCompatActivity {
 
 
 
-    }
+        }
 }

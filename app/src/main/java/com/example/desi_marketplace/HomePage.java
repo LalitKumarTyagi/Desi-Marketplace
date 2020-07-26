@@ -16,6 +16,7 @@ import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -24,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,9 +38,7 @@ public class HomePage extends AppCompatActivity {
     ImageButton imageButton_i,imageButton_logout;
     Button button_profile,button_chats,button_favourites,button_orders,button_book,button_news,button_search;
 
-    String name="";
-
-
+    String name="",UserType,Uid;
 
     SharedPreferences preferences;
     FirebaseFirestore firestore;
@@ -50,6 +50,8 @@ public class HomePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+
         setContentView(R.layout.activity_home_page);
         getSupportActionBar().hide();
 
@@ -69,22 +71,36 @@ public class HomePage extends AppCompatActivity {
         button_search = findViewById(R.id.button_search);
         button_news = findViewById(R.id.button_news);
 
-        String UserType = preferences.getString("UserType", ""), Uid = preferences.getString("Uid", "");
-
-        firestore.collection(UserType).document(Uid)
-                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        firestore.collection("Users").document("UserType").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot snapshot = task.getResult();
-                    if (snapshot.exists()) {
-                        name = snapshot.getString("Firstname");
-                        //Toast.makeText(HomePage.this, name, Toast.LENGTH_SHORT).show();
-                        textView_name.setText("Hi " + name + ", welcome!");
-                    }
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(documentSnapshot.exists())
+                {
+                    UserType=documentSnapshot.getString(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    editor.putString("UserType", UserType);
+                    editor.commit();firestore.collection(UserType).document(Uid)
+                        .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot snapshot = task.getResult();
+                                    if (snapshot.exists()) {
+                                        name = snapshot.getString("Firstname");
+                                        //Toast.makeText(HomePage.this, name, Toast.LENGTH_SHORT).show();
+                                        textView_name.setText("Hi " + name + ", welcome!");
+                                    }
+                                }
+                            }
+                        });
                 }
             }
         });
+
+        UserType = preferences.getString("UserType", "");
+        Uid = preferences.getString("Uid", "");
+        //Toast.makeText(this, UserType+"  "+Uid, Toast.LENGTH_SHORT).show();
+
+
     }
     public void onClickI(View v)
     {
@@ -94,7 +110,7 @@ public class HomePage extends AppCompatActivity {
         int toastDurationInMilliSeconds = 10000;
         mToastToShow = Toast.makeText(this, "This app provides a platform to local manufacturers " +
                 "and retailers to sell their products. And customers to find peer rated good quality product sellers." +
-                " Enjoy the the app. ", Toast.LENGTH_LONG);
+                " Enjoy the app. ", Toast.LENGTH_LONG);
 
         // Set the countdown to display the toast
         CountDownTimer toastCountDown;
@@ -156,7 +172,10 @@ public class HomePage extends AppCompatActivity {
     public void onClickNews(View v)
     {
         startActivity(new Intent(HomePage.this,NewsActivity.class));
-
+    }
+    public void onClickAds(View v)
+    {
+        startActivity(new Intent(HomePage.this,AdsActivity.class));
     }
 
 

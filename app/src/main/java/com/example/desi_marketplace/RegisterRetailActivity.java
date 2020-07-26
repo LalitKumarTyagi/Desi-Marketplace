@@ -74,6 +74,8 @@ public class RegisterRetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+
         setContentView(R.layout.activity_register_retail);
         getSupportActionBar().hide();
 
@@ -100,7 +102,7 @@ public class RegisterRetailActivity extends AppCompatActivity {
         editor=preferences.edit();
 
         String list[]={"GeneralStore","Garments","BeautyProducts","Footwear","WatchStore","ToyShop"};
-        ArrayAdapter<String> adapter=new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,list);
+        ArrayAdapter<String> adapter=new ArrayAdapter<>(this,R.layout.row,list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

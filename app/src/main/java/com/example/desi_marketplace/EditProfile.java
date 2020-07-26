@@ -8,6 +8,8 @@ import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,11 +20,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -46,6 +50,7 @@ public class EditProfile extends AppCompatActivity {
     ImageButton imageButton_capture;
     Button button_next;
     ProgressBar progressBar;
+    ImageView imageView;
 
 
     private FirebaseAuth auth;
@@ -63,6 +68,8 @@ public class EditProfile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+
         setContentView(R.layout.activity_edit_profile);
         getSupportActionBar().hide();
 
@@ -73,17 +80,19 @@ public class EditProfile extends AppCompatActivity {
 
         editText_firstname=findViewById(R.id.editText_firstname);
         editText_lastname=findViewById(R.id.editText_lastname);
-        editText_email=findViewById(R.id.editText_email);
+        //editText_email=findViewById(R.id.editText_email);
         editText_phoneNo = findViewById(R.id.editText_password);
         editText_shopName = findViewById(R.id.editText_shopName);
-        textView_shopType =  findViewById(R.id.textView_shopType);
-        textView_shopType0 = findViewById(R.id.textView7);
-        listView = findViewById(R.id.listView);
+        //textView_shopType =  findViewById(R.id.textView_shopType);
+        //textView_shopType0 = findViewById(R.id.textView7);
+        //listView = findViewById(R.id.listView);
         imageButton_capture=findViewById(R.id.imageButton_capture);
         progressBar=findViewById(R.id.progressBar);
+        imageView=findViewById(R.id.imageView5);
 
         storageRef= FirebaseStorage.getInstance().getReference("Images/"+userType+"/"+Uid);
         firestore = FirebaseFirestore.getInstance();
+        downloadImage();
 
         firestore.collection("Users").document("UserType").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -108,14 +117,14 @@ public class EditProfile extends AppCompatActivity {
 
                                     editText_firstname.setText(firstname);
                                     editText_lastname.setText(lastname);
-                                    editText_email.setText(email);
+                                    //editText_email.setText(email);
                                     editText_phoneNo.setText(phoneNo);
                                     editText_shopName.setText(enterpriseName);
-                                    textView_shopType0.setText("Product Type: ");
-                                    textView_shopType.setText(productType);
+                                    //textView_shopType0.setText("Product Type: ");
+                                    //textView_shopType.setText(productType);
 
-                                    String list[]={"Packaging","FoodAndSnacks","Bakery","OtherEatables","Textile","Autoparts"};
-                                    ArrayAdapter<String> adapter=new ArrayAdapter(EditProfile.this,android.R.layout.simple_list_item_1,list);
+                                    /*String list[]={"Packaging","FoodAndSnacks","Bakery","OtherEatables","Textile","Autoparts"};
+                                    ArrayAdapter<String> adapter=new ArrayAdapter(EditProfile.this,R.layout.row,list);
                                     listView.setAdapter(adapter);
                                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                         @Override
@@ -125,7 +134,7 @@ public class EditProfile extends AppCompatActivity {
                                             textView_shopType.setText(productType);
                                             Toast.makeText(EditProfile.this,productType , Toast.LENGTH_SHORT).show();
                                         }
-                                    });
+                                    });*/
 
                                     //listView.setNestedScrollingEnabled(true);
 
@@ -151,14 +160,14 @@ public class EditProfile extends AppCompatActivity {
 
                                     editText_firstname.setText(firstname);
                                     editText_lastname.setText(lastname);
-                                    editText_email.setText(email);
+                                    //editText_email.setText(email);
                                     editText_phoneNo.setText(phoneNo);
                                     editText_shopName.setText(shopName);
-                                    textView_shopType0.setText("Shop Type: ");
-                                    textView_shopType.setText(productType);
+                                    //textView_shopType0.setText("Shop Type: ");
+                                    //textView_shopType.setText(productType);
 
-                                    String list[]={"GeneralStore","Garments","BeautyProducts","Footwear","WatchStore","ToyShop"};
-                                    ArrayAdapter<String> adapter=new ArrayAdapter(EditProfile.this,android.R.layout.simple_list_item_1,list);
+                                    /*String list[]={"GeneralStore","Garments","BeautyProducts","Footwear","WatchStore","ToyShop"};
+                                    ArrayAdapter<String> adapter=new ArrayAdapter(EditProfile.this,R.layout.row,list);
                                     listView.setAdapter(adapter);
                                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                         @Override
@@ -168,7 +177,7 @@ public class EditProfile extends AppCompatActivity {
                                             textView_shopType.setText(productType);
                                             Toast.makeText(EditProfile.this,productType , Toast.LENGTH_SHORT).show();
                                         }
-                                    });
+                                    });*/
 
 
 
@@ -193,12 +202,12 @@ public class EditProfile extends AppCompatActivity {
 
                                     editText_firstname.setText(firstname);
                                     editText_lastname.setText(lastname);
-                                    editText_email.setText(email);
+                                    //editText_email.setText(email);
                                     editText_phoneNo.setText(phoneNo);
                                     editText_shopName.setText("shopName");
-                                    textView_shopType0.setText("productType");
+                                    //textView_shopType0.setText("productType");
                                     editText_shopName.setVisibility(View.INVISIBLE);
-                                    textView_shopType0.setVisibility(View.INVISIBLE);
+                                    //textView_shopType0.setVisibility(View.INVISIBLE);
 
 
                                 }
@@ -225,19 +234,16 @@ public class EditProfile extends AppCompatActivity {
     public void onClickSave(View v)
     {
 
-        if( firstname.isEmpty() || lastname.isEmpty()
-                || email.isEmpty() || phoneNo.isEmpty()
-            //|| shopName.isEmpty()
-        )
+        if( firstname.isEmpty() || lastname.isEmpty() || phoneNo.isEmpty())
         {
             Toast.makeText(getApplicationContext(), "Please fill all the details!", Toast.LENGTH_SHORT).show();
         }
 
-        else if (!(email.contains("@")) || !(email.contains(".com")))
-        {
-            Toast.makeText(getApplicationContext(), "Invalid Email!", Toast.LENGTH_SHORT).show();
-        }
-        else if( phoneNo.length()!=10)
+       /*else if (!(email.contains("@")) || !(email.contains(".com")))
+       {
+        Toast.makeText(getApplicationContext(), "Invalid Email!", Toast.LENGTH_SHORT).show();
+       }*/
+        else if( phoneNo.length()<10)
         {
             Toast.makeText(getApplicationContext(), "Invalid Phone no.", Toast.LENGTH_SHORT).show();
         }
@@ -261,19 +267,19 @@ public class EditProfile extends AppCompatActivity {
 
                 firstname= editText_firstname.getText().toString();
                 lastname= editText_lastname.getText().toString();
-                email=  editText_email.getText().toString();
+                //email=  editText_email.getText().toString();
                 phoneNo = editText_phoneNo.getText().toString();
                 enterpriseName = editText_shopName.getText().toString();
-                productType = textView_shopType.getText().toString();
+                //productType = textView_shopType.getText().toString();
 
 
                 HashMap<String,Object> map=new HashMap<>();
                 map.put("Firstname",firstname);
                 map.put("Lastname",lastname);
-                map.put("email",email);
+                //map.put("email",email);
                 map.put("Phone",phoneNo);
                 map.put("EnterpriseName",enterpriseName);
-                map.put("ProductType",productType);
+                //map.put("ProductType",productType);
 
 
                 firestore.collection("Manufacturer").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(map, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -287,7 +293,7 @@ public class EditProfile extends AppCompatActivity {
                         }
                         else
                         {
-                            Toast.makeText(EditProfile.this, "Enable to link to database \n Try after some time", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditProfile.this, "Unable to link to database \n Try after some time", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(EditProfile.this, HomePage.class));
                             finish();
                         }
@@ -305,19 +311,19 @@ public class EditProfile extends AppCompatActivity {
 
                 firstname= editText_firstname.getText().toString();
                 lastname= editText_lastname.getText().toString();
-                email=  editText_email.getText().toString();
+                //email=  editText_email.getText().toString();
                 phoneNo = editText_phoneNo.getText().toString();
-                shopType = editText_shopName.getText().toString();
-                shopType = textView_shopType.getText().toString();
+                shopName = editText_shopName.getText().toString();
+                //shopType = textView_shopType.getText().toString();
 
 
                 HashMap<String,Object> map=new HashMap<>();
                 map.put("Firstname",firstname);
                 map.put("Lastname",lastname);
-                map.put("email",email);
+                //map.put("email",email);
                 map.put("Phone",phoneNo);
                 map.put("ShopName",shopName);
-                map.put("ShopType",shopType);
+                //map.put("ShopType",shopType);
 
 
                 firestore.collection("Retailer").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(map, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -331,7 +337,7 @@ public class EditProfile extends AppCompatActivity {
                         }
                         else
                         {
-                            Toast.makeText(EditProfile.this, "Enable to link to database \n Try after some time", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditProfile.this, "Unable to link to database \n Try after some time", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(EditProfile.this, HomePage.class));
                             finish();
                         }
@@ -348,16 +354,16 @@ public class EditProfile extends AppCompatActivity {
 
                 firstname= editText_firstname.getText().toString();
                 lastname= editText_lastname.getText().toString();
-                email=  editText_email.getText().toString();
+                //email=  editText_email.getText().toString();
                 phoneNo = editText_phoneNo.getText().toString();
-                enterpriseName = editText_shopName.getText().toString();
-                productType = textView_shopType.getText().toString();
+                //enterpriseName = editText_shopName.getText().toString();
+                //productType = textView_shopType.getText().toString();
 
 
                 HashMap<String,Object> map=new HashMap<>();
                 map.put("Firstname",firstname);
                 map.put("Lastname",lastname);
-                map.put("email",email);
+                //map.put("email",email);
                 map.put("Phone",phoneNo);
 
 
@@ -373,21 +379,40 @@ public class EditProfile extends AppCompatActivity {
                         }
                         else
                         {
-                            Toast.makeText(EditProfile.this, "Enable to link to database \n Try after some time", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditProfile.this, "Unable to link to database \n Try after some time", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(EditProfile.this, HomePage.class));
                             finish();
                         }
                     }
                 });
-
-
-
             }
         }
-
-
     }
+    public void downloadImage()
+    {
+        StorageReference ref=storageRef.child("DisplayPicture");
+        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                imageView.setImageURI(uri);
+            }
+        });
+        Glide.with(this).load(ref).into(imageView);
+        final long ONE_MEGABYTE = 1024 * 1024;
+        ref.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                imageView.setImageBitmap(bmp);
 
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                //Toast.makeText(getApplicationContext(), "No Such file or Path found!!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 
     public void onClickCapture(View v)
     {
@@ -405,7 +430,7 @@ public class EditProfile extends AppCompatActivity {
         {
             imageUri=data.getData();
             uploadImage();
-            //imageView.setImageUri(imageUri);
+            imageView.setImageURI(imageUri);
         }
     }
     private String getExtension(Uri uri)                        // to get the image extension like jpg, png or jpeg, etc
@@ -418,8 +443,16 @@ public class EditProfile extends AppCompatActivity {
     {
         //final StorageReference ref=storageRef.child("DisplayPicture"+getExtension(imageUri));
         final StorageReference ref=storageRef.child("DisplayPicture");
-        ref.putFile(imageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        ref.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if(task.isSuccessful())
+                    Toast.makeText(EditProfile.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(EditProfile.this, "Image not uploaded. Try after sometime", Toast.LENGTH_SHORT).show();
+            }
+        })
+                /*.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         final Uri[] downloadUrl = new Uri[1];
@@ -438,7 +471,7 @@ public class EditProfile extends AppCompatActivity {
                     public void onFailure(@NonNull Exception exception) {
                         Toast.makeText(EditProfile.this, "Image not uploaded. Try after sometime", Toast.LENGTH_SHORT).show();
                     }
-                })
+                })*/
                 .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
