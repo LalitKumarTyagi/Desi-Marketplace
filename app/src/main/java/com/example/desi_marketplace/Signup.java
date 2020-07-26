@@ -1,4 +1,4 @@
- package com.example.desi_marketplace;
+package com.example.desi_marketplace;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -79,7 +79,7 @@ public class Signup extends AppCompatActivity {
 
         String s[]=new String[]{"Manufacturer","Retailer","Consumer"};
 
-        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,s);
+        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(this,R.layout.row,s);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
 
@@ -160,6 +160,7 @@ public class Signup extends AppCompatActivity {
             editor.putString("Firstname",firstname);
             editor.putString("Lastname",lastname);
             editor.putString("email",email);
+            editor.putString("UserType",accountType);
             editor.commit();
             if(accountType=="Manufacturer")
             {
@@ -172,9 +173,13 @@ public class Signup extends AppCompatActivity {
                             Log.d("Document saving","failed");
                     }
                 });*/
-                editor.putString("UserType","Manufacturer");
-                editor.commit();
-                startActivity(new Intent(Signup.this, RegisterManuActivity.class));
+                //editor.putString("UserType","Manufacturer");
+                //editor.commit();
+                Intent goToManu=new Intent(Signup.this,RegisterManuActivity.class);
+                goToManu.putExtra("Firstname",firstname);
+                goToManu.putExtra("Lastname",lastname);
+                goToManu.putExtra("email",email);
+                startActivity(goToManu);
             }
             else if(accountType=="Retailer")
             {
@@ -187,9 +192,13 @@ public class Signup extends AppCompatActivity {
                             Log.d("Document saving","failed");
                     }
                 });*/
-                editor.putString("UserType","Retailer");
-                editor.commit();
-                startActivity(new Intent(Signup.this,RegisterRetailActivity.class));
+                //editor.putString("UserType","Retailer");
+                //editor.commit();
+                Intent goToRetail=new Intent(Signup.this,RegisterRetailActivity.class);
+                goToRetail.putExtra("Firstname",firstname);
+                goToRetail.putExtra("Lastname",lastname);
+                goToRetail.putExtra("email",email);
+                startActivity(goToRetail);
             }
             else
             {
@@ -202,9 +211,13 @@ public class Signup extends AppCompatActivity {
                             Log.d("Document saving","failed");
                     }
                 });*/
-                editor.putString("UserType","Consumer");
-                editor.commit();
-                startActivity(new Intent(Signup.this,RegisterConsuActivity.class));
+                //editor.putString("UserType","Consumer");
+                //editor.commit();
+                Intent goToConsu=new Intent(Signup.this,RegisterConsuActivity.class);
+                goToConsu.putExtra("Firstname",firstname);
+                goToConsu.putExtra("Lastname",lastname);
+                goToConsu.putExtra("email",email);
+                startActivity(goToConsu);
             }
 
             finish();
