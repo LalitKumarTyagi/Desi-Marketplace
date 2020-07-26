@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:background="#222831"
         android:orientation="vertical"
-        tools:context=".ChatsResult">
+        tools:context=".BookResult">
 
 
     </LinearLayout>
