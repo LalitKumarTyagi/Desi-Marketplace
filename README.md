@@ -94,7 +94,7 @@ Java, Android Studio, Google Maps API, Firebase
 ---
 
 ## Workflow of activities:
-  
+  ![IMG_20200727_154818](https://github.com/LalitKumarTyagi/Desi-Marketplace/blob/master/pics/IMG_20200727_154818.jpg)
   ---
   
 ## Installation instructions:
@@ -103,3 +103,9 @@ Java, Android Studio, Google Maps API, Firebase
     - Add the google maps API key to your project [Refer to documentation](https://developers.google.com/maps/documentation/android-sdk/start)
   - Now you can run the project on Android Studio.
   - Others can download the apk from the given link.(apk will be uploaded on 27-07-2020)
+  
+## *Home Page*
+![Optimized-Screenshot_2020-07-27-15-59-50-309_com.example.seller2buyer](https://github.com/LalitKumarTyagi/Desi-Marketplace/blob/master/pics/Optimized-Screenshot_2020-07-27-15-59-50-309_com.example.seller2buyer.jpg)
+
+## *Seller Page*
+![Optimized-Screenshot_2020-07-27-16-04-54-970_com.example.seller2buyer](https://github.com/LalitKumarTyagi/Desi-Marketplace/blob/master/pics/Optimized-Screenshot_2020-07-27-16-04-54-970_com.example.seller2buyer.jpg)
