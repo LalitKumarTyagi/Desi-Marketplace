@@ -1,5 +1,4 @@
 package com.example.desi_marketplace;
-
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
@@ -60,6 +59,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+
         setContentView(R.layout.activity_maps);
 
         //getSupportActionBar().hide();

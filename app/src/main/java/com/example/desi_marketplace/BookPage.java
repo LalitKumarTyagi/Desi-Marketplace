@@ -61,6 +61,8 @@ public class BookPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+
         setContentView(R.layout.activity_book_page);
         getSupportActionBar().hide();
 
@@ -91,7 +93,7 @@ public class BookPage extends AppCompatActivity {
                    BookPage.this.balance = task.getResult().getDouble("Balance");
                textView_balance.setText(Double.toString(balance));
                if (balance < 0) {
-                   textView_balance.setTextColor(Color.argb(100, 255, 34, 68));
+                   textView_balance.setTextColor(Color.argb(100, 255, 0, 0));
                    button_notify.setVisibility(View.INVISIBLE);
                }
                else {
@@ -150,12 +152,15 @@ public class BookPage extends AppCompatActivity {
     public void show(String senderUid,String message,double amount,String time)
     {
         String sender;
+
         time=time.substring(0,4)+"/"+time.substring(4,6)+"/"+time.substring(6,8)+"  "+time.substring(8,10)+"-"+time.substring(10,12);
         if(senderUid.equals("me"))
             sender="me";
         else
             sender="Transactor";
         TextView textView=new TextView(BookPage.this);
+        textView.setTextColor(Color.parseColor("#eeeeee"));
+
         if(sender.equals("me"))
         {
             textView.setText(time+"\n"+sender+":    \n"+"Amount: "+amount+"    \n"+message+"    ");
@@ -223,7 +228,7 @@ public class BookPage extends AppCompatActivity {
                         balance += finalAmount;
                         textView_balance.setText(Double.toString(balance));
                         if (balance < 0) {
-                            textView_balance.setTextColor(Color.argb(100, 255, 34, 68));
+                            textView_balance.setTextColor(Color.argb(100, 255, 0, 0));
                             button_notify.setVisibility(View.INVISIBLE);
                         }
                         else {
@@ -301,7 +306,7 @@ public class BookPage extends AppCompatActivity {
                         balance += finalAmount;
                         textView_balance.setText(Double.toString(balance));
                         if (balance < 0) {
-                            textView_balance.setTextColor(Color.argb(100, 255, 34, 68));
+                            textView_balance.setTextColor(Color.argb(100, 255, 0, 0));
                             button_notify.setVisibility(View.INVISIBLE);
                         }
                         else {

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -45,6 +46,8 @@ public class ChatPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+
         setContentView(R.layout.activity_chat_page);
         getSupportActionBar().hide();
 
@@ -100,10 +103,14 @@ public class ChatPage extends AppCompatActivity {
         else
             sender="Transactor";
         TextView textView=new TextView(ChatPage.this);
+        textView.setTextColor(Color.parseColor("#eeeeee"));
+
+        textView.setTextColor(Color.parseColor("#eeeeee"));
         if(sender.equals("me"))
         {
             textView.setText(time+"\n"+sender+":\n"+message);
             textView.setGravity(Gravity.RIGHT);
+
         }
         else
         {

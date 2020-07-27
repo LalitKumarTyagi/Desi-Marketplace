@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#222831"
     tools:context=".MapsActivity">
 
     <TextView
@@ -13,6 +14,9 @@
         android:layout_height="45dp"
         android:layout_marginTop="24dp"
         android:text="Select location of your enterpise on map. Click on the location to select"
+        android:textColor="#eeeeee"
+        android:textColorHint="#eeeeee"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,6 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:background="#00adb5"
         android:onClick="onClickNext"
         android:text="Next"
         app:layout_constraintEnd_toEndOf="parent"

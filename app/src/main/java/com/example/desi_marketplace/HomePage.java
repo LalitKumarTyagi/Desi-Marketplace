@@ -1,5 +1,4 @@
 package com.example.desi_marketplace;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -177,7 +176,12 @@ public class HomePage extends AppCompatActivity {
     {
         startActivity(new Intent(HomePage.this,AdsActivity.class));
     }
-
-
+/*@Override
+public void onBackPressed()
+{
+    //moveTaskToBack(true);
+    //android.os.Process.killProcess(android.os.Process.myPid());
+    //finish();
+}*/
 
 }

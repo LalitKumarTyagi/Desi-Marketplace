@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.HttpAuthHandler;
@@ -100,6 +101,7 @@ public class OrderPage extends AppCompatActivity {
     {
         time=time.substring(0,4)+"/"+time.substring(4,6)+"/"+time.substring(6,8)+"  "+time.substring(8,10)+"-"+time.substring(10,12);
         TextView textView=new TextView(OrderPage.this);
+        textView.setTextColor(Color.parseColor("#eeeeee"));
         textView.setText(time+"\n"+message);
         textView.setTextSize(15);               // to be checked
 
