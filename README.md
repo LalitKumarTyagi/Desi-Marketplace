@@ -24,7 +24,25 @@ Most **B2B applications and websites are simply buyer and seller based**. Well t
 
 After analysing different supply chains we proposed a completely new concept. The idea is to **divide all the components of the supply chain into Manufacturers, Retailers and Consumers**. This way the whole system will work as it is but online.
 
+## In short Desi Marketplace has brought the complete local marketing ecosystem and the complete supply chain (as it is) online to increase their reach
+
 ---
+
+## Advantages of Desi Marketplace:
+ - **Connecting seller and buyer directly-** The app connects the seller and buyer directly without interfering much.
+ - **In app chat and call feature-** The app has a realtime chat feature which is end to end encrypted.
+ - **Flexible order-** When the dealers can talk and chat, they can make up a flexible deal unlike other B2B applications where one has to choose from the provided deals.
+ - **Book keeping-** Daily customers prefer to keep a book with the shopkeepers. Desi Marketplace is a complete package and so it has this feature too.
+ - **Order History-** An order history is maintained by the app which helps in future reference in case of any conflict related to order.
+ - **Maps-** During the loackdown retailers were in search of local manufacturers. The app has a map feature using which a buyer can see the seller's enterprise's location.
+ - **Favourites-** To make the app more user friendly, we have made a favourite list option. A user can add any enterprise to his favourite list.
+ - **Authenticated users-** Firebase authentication feature is used.
+ - **Publish ads-** To promote one's enterprise, one can send a poster to us with a range and his poster will be published in the app within that range.
+ - **Security-** We have used Firebase security rules wisely to avoid any security breach.
+ - **Simple and comfortable UI/UX**
+ - **Small size and little data usage-** The app is less than 7MB in size and uses minimal mobile data.
+ - **High scalability-** We chose firebase as our database to meet huge scalability in future.
+ - **Rating-** The rating enables the consumer to select among multiple sellers.
 
 ## Features of the app:
 
@@ -76,26 +94,6 @@ Java, Android Studio, Google Maps API, Firebase
 ---
 
 ## Workflow of activities:
-1. Login page.
-- ![WhatsApp%20Image%202020-07-23%20at%2019.27.59%20(1)](https://github.com/LalitKumarTyagi/Desi-Marketplace/blob/master/WhatsApp%20Image%202020-07-23%20at%2019.27.59%20(1).jpeg)
-   - 1.1 If the user has already signed up, he can simply login or can go to the signup page.
-   - 1.2 Three different types of activities based on whether the user is a Manufacturer, Retailer or a Consumer.
-   - 1.3 After signup or login, the user is directed to the home page.
-
-2. The home page is displayed as follows:
-   - ![WhatsApp%20Image%202020-07-23%20at%2019.27.59](https://github.com/LalitKumarTyagi/Desi-Marketplace/blob/master/WhatsApp%20Image%202020-07-23%20at%2019.27.59.jpeg)
-   - 2.1 The *i* button displays details about the app.
-   - 2.2 The *logout* is to logout from the current account.
-   - 2.3 The *Profile* button enable the user to edit his details.
-   - 2.4 The *Chats* button will open up an activity containing all the chats. Next, clicking on any chat, the complete realtime chat activity will open up.
-   - 2.5 The *Orders* button will open up an activity that contains the order history with each individual user.
-   - 2.6 The *Search* button will open up the search choice activity in which the user has to chose what to search, filters and sorting order(by rating or by distance). Proceeding further the user will get the search results and clicking on any search will open the sellerPage<`3`>  activity.
-   - 2.7 The *Book* button will open the books. Clicking on any book will open up a realtime BahiKhata.
-   - 2.8 The *Favourites* button will open up an activity that contains a list of all the sellers marked as favourites. Clicking on any one will open up the sellerPage<`3`> activity.
-   - 2.9 The *News* button will open up an activity similar to a news app.
-  
-3. The sellerPage activity will open up as shown:
-  - ![WhatsApp%20Image%202020-07-23%20at%2019.29.39](https://github.com/LalitKumarTyagi/Desi-Marketplace/blob/master/WhatsApp%20Image%202020-07-23%20at%2019.29.39.jpeg)
   
   ---
   
@@ -105,11 +103,3 @@ Java, Android Studio, Google Maps API, Firebase
     - Add the google maps API key to your project [Refer to documentation](https://developers.google.com/maps/documentation/android-sdk/start)
   - Now you can run the project on Android Studio.
   - Others can download the apk from the given link.(apk will be uploaded on 27-07-2020)
-
-## Known bugs:
- - Maps activity crashing sometimes
- - Filters (boolean payment,delivery) not saving in firestore
- 
-### Working on:
- Search Activity
- Chat Activity
