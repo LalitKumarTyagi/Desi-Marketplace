@@ -38,7 +38,7 @@ After analysing different supply chains we proposed a completely new concept. Th
  - **Favourites-** To make the app more user friendly, we have made a favourite list option. A user can add any enterprise to his favourite list.
  - **Authenticated users-** Firebase authentication feature is used.
  - **Publish ads-** To promote one's enterprise, one can send a poster to us with a range and his poster will be published in the app within that range.
- - **Security-** We have used Firebase security rules wisely to avoid any security breach.
+ - **Security-** We have used Firebase security rules wisely to avoid any security breach. **The chats, book and orders are end-to-end encrypted**.
  - **Simple and comfortable UI/UX**
  - **Small size and little data usage-** The app is less than 7MB in size and uses minimal mobile data.
  - **High scalability-** We chose firebase as our database to meet huge scalability in future.
